@@ -1,20 +1,20 @@
 import logging
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-import start
+import ayuda
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
-def ayuda(update, context):
+def prueba(update, context):
     opciones = [[InlineKeyboardButton("Recibir saludo", callback_data="op1")],
                 [InlineKeyboardButton("Mostrar apellido", callback_data="op2")],
                 [InlineKeyboardButton("Recibir imagen", callback_data="op3")],
                 [InlineKeyboardButton("Recibir documento", callback_data="op4")]]
     reply_markup = InlineKeyboardMarkup(opciones)
     name = update.message.chat["first_name"]
-    logger.info(f"El usuario {name} ha solicitado ayuda.")
+    logger.info(f"El usuario {name} ha solicitado un prueba.")
     text = f"Hola {name}, estos los comandos que puedo ejecutar:"
     update.message.reply_text(text, reply_markup=reply_markup)
 
@@ -53,12 +53,6 @@ def documento(update, context):
     update.message.bot.sendDocument(chat_id=chat_id, document=documento, timeout=200)
 
 
-def image(update, context, query):
-    query.message.reply_text(f"Aqui una imagen de Danna la mas hermosa y su amix")
-    logger.info("El usuario ha solicitado una imagen.")
-    img = open("src/images/danna.jpg", "rb")
-    chat_id = update.message.chat_id
-    update.message.bot.sendPhoto(chat_id=chat_id, photo=img)
 
 
 def grafo(update, context):
@@ -109,3 +103,19 @@ def menu(update, context):
         imagen(chat_id, query, name)
     elif answer == "op4":
         document(chat_id, query)
+
+def menuAyuda(update, context):
+    query = update.callback_query
+    query.answer()
+    answer = query.data
+    chat_id = query.message.chat_id
+    name = query.message.chat["first_name"]
+    last_name = query.message.chat["last_name"]
+    if answer == "op6":
+        ayuda.descripcion(name, query)
+    elif answer == "op7":
+        ayuda.funciones(name,query)
+    elif answer == "op8":
+        ayuda.comandos(name, query)
+    elif answer == "op9":
+        ayuda.infoCreador(name, query)
