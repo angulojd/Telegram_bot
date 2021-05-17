@@ -1,9 +1,10 @@
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 
+
 import ayuda
 from config import TOKEN
 import bot
-import start, solucionRR
+import start, solucionRR, grafo
 
 def main():
     # Establecemos una conexión entre nuestro programa y el bot.
@@ -23,6 +24,7 @@ def main():
     dp.add_handler(CallbackQueryHandler(bot.menuAyuda, pattern="op8"))
     dp.add_handler(CallbackQueryHandler(bot.menuAyuda, pattern="op9"))
     dp.add_handler(CommandHandler("solucionRR", solucionRR.polinomio))
+    dp.add_handler(CommandHandler("grafo", grafo.grafo))
     # Iniciamos el bot.
     updater.start_polling()
     # Mantener al bot ejecutándose hasta que ocurra una interrupción.
