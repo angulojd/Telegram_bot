@@ -1,7 +1,6 @@
 import logging
 import networkx as nx
 import matplotlib.pyplot as plt
-import random
 from networkx.generators.harary_graph import hnm_harary_graph, hkn_harary_graph
 
 logging.basicConfig(level=logging.INFO,
@@ -15,6 +14,11 @@ def grafo(update, context):
     text = update.message.text
     text = text.replace("/grafo ","").strip()
     update.message.reply_text(f"Usted ha escrito: \n{text}")
+    sw = False
+    if(text == "/grafo"):
+        update.message.reply_text("Por favor digitar la cantidad de vertices, cantidad de aristas, y grado de cada vertice respectivamente")
+        update.message.reply_text("Ejemplo: /grafo (9,10,3)")
+        sw = True
     try:
         graph = eval(text)
         vertices = int(graph[0])
@@ -39,9 +43,10 @@ def grafo(update, context):
                 logger.info("El usuario digito mal los valores del grafo")
                 update.message.reply_text("El numero de aristas excedio el numero maximo de aristas que puede tener el grafo")
     except Exception as e:
-        update.message.reply_text("Por favor, digite los parámetros nuevamente de la siguiente forma: \n\n /grafo (V,E,K) \n\n donde en las letras van los numeros correspondientes.")
-        update.message.reply_text("Ej: \n V = 9 \n E = 10 \n K = 3 \n /grafo (9,10,3)")
-        logger.info("Ha ocurrido un error en los parámetros.")
+        if(sw == False):
+            update.message.reply_text("Por favor, digite los parámetros nuevamente de la siguiente forma: \n\n /grafo (V,E,K) \n\n donde en las letras van los numeros correspondientes.")
+            update.message.reply_text("Ej: \n V = 9 \n E = 10 \n K = 3 \n /grafo (9,10,3)")
+            logger.info("Ha ocurrido un error en los parámetros.")
 
 
 class GraphVisualization:
