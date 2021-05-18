@@ -16,7 +16,7 @@ def grafo(update, context):
     update.message.reply_text(f"Usted ha escrito: \n{text}")
     sw = False
     if(text == "/grafo"):
-        update.message.reply_text("Por favor digitar la cantidad de vertices, cantidad de aristas, y grado de cada vertice respectivamente")
+        update.message.reply_text("Por favor digitar en el mismo orden la cantidad de vertices, cantidad de aristas, y grado de cada vertice")
         update.message.reply_text("Ejemplo: /grafo (9,10,3)")
         sw = True
     try:
@@ -25,7 +25,7 @@ def grafo(update, context):
         aristas = int(graph[1])
         k = int(graph[2])
         r = k * vertices / 2
-        if(aristas > k and vertices > k and aristas >= vertices and aristas <= r):
+        if(aristas > k and vertices > k and aristas >= vertices):
             logger.info("El usuario digito bien los valores del grafo")
             update.message.reply_text(f"En su grafo puede tener un maximo de {r} aristas")
             mostrarGrafo(vertices,aristas,k,update, context)
@@ -39,9 +39,6 @@ def grafo(update, context):
             elif(aristas < vertices):
                 logger.info("El usuario digito mal los valores del grafo")
                 update.message.reply_text("El numero de aristas no puede ser menor al numero de vertices")
-            elif(aristas>r):
-                logger.info("El usuario digito mal los valores del grafo")
-                update.message.reply_text("El numero de aristas excedio el numero maximo de aristas que puede tener el grafo")
     except Exception as e:
         if(sw == False):
             update.message.reply_text("Por favor, digite los parámetros nuevamente de la siguiente forma: \n\n /grafo (V,E,K) \n\n donde en las letras van los numeros correspondientes.")

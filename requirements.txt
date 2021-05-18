@@ -3,3 +3,4 @@ telegram
 numpy
 matplotlib.pyplot
 networkx
+sympy

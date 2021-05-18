@@ -17,6 +17,7 @@ def fibo(update, context):
         update.message.reply_text("Por favor digitar los valores de la siguiente forma: \n\n"
                               "/fibonacci (1,1,1,1...n)\n\n"
                               "donde puede reemplazar el 1 por cualquier valor")
+        update.message.reply_text("Ejemplo: /fibonacci (2, 3, 4, 5, 7, 11, 13, 18, 22, 29)")
         sw = True
     try:
         fibo = eval(text)
@@ -37,7 +38,7 @@ def fibo(update, context):
             for j in range(len(result)):
                 if(fibo[i] == result[j]):
                     result2.append(fibo[i])
-        update.message.reply_text(f"La subsecuencia fibonacci de los valores previamente ingresadio es: \n{result2}")
+        update.message.reply_text(f"La subsecuencia fibonacci de los valores previamente ingresados es: \n{result2}")
 
     except Exception as e:
         if(sw == False):
