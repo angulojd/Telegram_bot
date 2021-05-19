@@ -6,9 +6,6 @@ from networkx.generators.harary_graph import hnm_harary_graph, hkn_harary_graph
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-vertices = 5
-aristas = 5
-k = 1
 def grafo(update, context):
     logger.info(f"El usuario {update.message.chat['first_name']} ha solicitado un grafo.")
     text = update.message.text
@@ -25,20 +22,24 @@ def grafo(update, context):
         aristas = int(graph[1])
         k = int(graph[2])
         r = k * vertices / 2
-        if(aristas > k and vertices > k and aristas >= vertices):
-            logger.info("El usuario digito bien los valores del grafo")
-            update.message.reply_text(f"En su grafo puede tener un maximo de {r} aristas")
-            mostrarGrafo(vertices,aristas,k,update, context)
+        if(vertices >= 0 and aristas >= 0 and k >= 0):
+            if(aristas > k and vertices > k and aristas >= vertices):
+                logger.info("El usuario digito bien los valores del grafo")
+                update.message.reply_text(f"En su grafo puede tener un maximo de {r} aristas")
+                mostrarGrafo(vertices,aristas,k,update, context)
+            else:
+                if (aristas <= k):
+                    logger.info("El usuario digito mal los valores del grafo")
+                    update.message.reply_text("El numero de aristas es menor o igual que el maximo de aristas por vertice")
+                elif(vertices <= k):
+                    logger.info("El usuario digito mal los valores del grafo")
+                    update.message.reply_text("El numero de vertices es menor al numero maximo de aristas por vertice")
+                elif(aristas < vertices):
+                    logger.info("El usuario digito mal los valores del grafo")
+                    update.message.reply_text("El numero de aristas no puede ser menor al numero de vertices")
         else:
-            if (aristas <= k):
-                logger.info("El usuario digito mal los valores del grafo")
-                update.message.reply_text("El numero de aristas es menor o igual que el maximo de aristas por vertice")
-            elif(vertices <= k):
-                logger.info("El usuario digito mal los valores del grafo")
-                update.message.reply_text("El numero de vertices es menor al numero maximo de aristas por vertice")
-            elif(aristas < vertices):
-                logger.info("El usuario digito mal los valores del grafo")
-                update.message.reply_text("El numero de aristas no puede ser menor al numero de vertices")
+            update.message.reply_text("Hay numeros negativos, por favor intente de nuevo sin numeros negativos")
+
     except Exception as e:
         if(sw == False):
             update.message.reply_text("Por favor, digite los parámetros nuevamente de la siguiente forma: \n\n /grafo (V,E,K) \n\n donde en las letras van los numeros correspondientes.")

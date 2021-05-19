@@ -13,11 +13,6 @@ def main():
 
     # Establecer los comandos que ejecutará el bot.
     dp.add_handler(CommandHandler("start", start.start))
-    dp.add_handler(CommandHandler("prueba", bot.prueba))
-    dp.add_handler(CallbackQueryHandler(bot.menu, pattern="op1"))
-    dp.add_handler(CallbackQueryHandler(bot.menu, pattern="op2"))
-    dp.add_handler(CallbackQueryHandler(bot.menu, pattern="op3"))
-    dp.add_handler(CallbackQueryHandler(bot.menu, pattern="op4"))
     dp.add_handler(CommandHandler("ayuda", ayuda.ayuda))
     dp.add_handler(CallbackQueryHandler(bot.menuAyuda, pattern="op6"))
     dp.add_handler(CallbackQueryHandler(bot.menuAyuda, pattern="op7"))

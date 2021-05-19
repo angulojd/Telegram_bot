@@ -82,21 +82,21 @@ def resolver(mat, update, context):
                         contDeC = contDeC + 1
                         sw1 = True
                     else:
-                        resultado = resultado + positivo + valorConstante + tempC + tmp + elevado + recurrencia
+                        resultado = resultado + positivo + valorConstante + tempC + "(" + tmp + ")" + elevado + recurrencia
                         contDeC = contDeC + 1
                 elif(pos2 >= 2):
                     if(ls == 0):
-                        resultado = resultado + positivo + valorConstante + tempC + tmp + elevado + recurrencia
+                        resultado = resultado + positivo + valorConstante + tempC + "(" + tmp + ")" +elevado + recurrencia
                         contDeC = contDeC + 1
                         ls = ls + 1
                     elif(ls == 1):
-                        resultado = resultado + positivo + valorConstante + tempC + recurrencia + tmp + elevado + recurrencia
+                        resultado = resultado + positivo + valorConstante + tempC + recurrencia + "(" +tmp + ")" + elevado + recurrencia
                         contDeC = contDeC + 1
                         ls = ls + 1
                     else:
                         for i in range(pos2):
                             tempN = str(int(contDeN))
-                            resultado = resultado + positivo + valorConstante + tempC + recurrencia + elevado + tempN + tmp + elevado + recurrencia
+                            resultado = resultado + positivo + valorConstante + tempC + recurrencia + elevado + tempN + "(" + tmp + ")" + elevado + recurrencia
                             contDeN = contDeN + 1
                             contDeC = contDeC + 1
         update.message.reply_text(f"La forma solucion de la relacion de recurrencia es: \n\n"

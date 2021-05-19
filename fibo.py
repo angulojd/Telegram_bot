@@ -24,21 +24,28 @@ def fibo(update, context):
         fibo = sorted(fibo)
         may = 0
         update.message.reply_text(f"Valores ordenados: \n{fibo}")
+        sw = False
         for i in range(len(fibo)):
             if(may < int(fibo[i])):
                 may = int(fibo[i])
-        a, b = fibo[0], fibo[1]
-        result = []
-        while a <= may:
-            result.append(a)
-            a, b = b, a + b
-        result2 = []
-        for i in range(len(fibo)):
-            sw = False
-            for j in range(len(result)):
-                if(fibo[i] == result[j]):
-                    result2.append(fibo[i])
-        update.message.reply_text(f"La subsecuencia fibonacci de los valores previamente ingresados es: \n{result2}")
+            if(int(fibo[i] < 0)):
+                sw = True
+
+        if(sw == True):
+            update.message.reply_text("Hay numeros negativos en la secuencia, por favor ingrese nuevamente los valores sin numeros negativos")
+        else:
+            a, b = fibo[0], fibo[1]
+            result = []
+            while a <= may:
+                result.append(a)
+                a, b = b, a + b
+            result2 = []
+            for i in range(len(fibo)):
+                sw = False
+                for j in range(len(result)):
+                    if(fibo[i] == result[j]):
+                        result2.append(fibo[i])
+            update.message.reply_text(f"La subsecuencia fibonacci de los valores previamente ingresados es: \n{result2}")
 
     except Exception as e:
         if(sw == False):
