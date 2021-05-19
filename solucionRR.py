@@ -56,7 +56,7 @@ def resolver(mat, update, context):
     else:
         temp0 = factor_list(poli)
         res = solve(poli)
-        update.message.reply_text(f"Las raices para la solucion son las siguientes: {res} ")
+        update.message.reply_text(f"Las raices para la solucion son las siguientes: {sw} ")
         contDeC = 0
         contDeN = 2
         valorConstante = "c"
@@ -66,7 +66,6 @@ def resolver(mat, update, context):
         sw1 = False
         resultado = ""
         resolv = temp0[1]
-        ls = 0
 
         for i in range(len(resolv)):
             tmp = resolv[i]
@@ -78,27 +77,28 @@ def resolver(mat, update, context):
                 tempC = str(int(contDeC))
                 if(pos2 == 1):
                     if(sw1 == False):
-                        resultado = resultado + valorConstante + tempC + tmp + elevado + recurrencia
+                        resultado = resultado + valorConstante + tempC + "(" + tmp + ")" + elevado + recurrencia
                         contDeC = contDeC + 1
                         sw1 = True
                     else:
                         resultado = resultado + positivo + valorConstante + tempC + "(" + tmp + ")" + elevado + recurrencia
                         contDeC = contDeC + 1
-                elif(pos2 >= 2):
+            if(pos2 >= 2):
+                ls = 0
+                for i in range(pos2):
+                    print(ls)
                     if(ls == 0):
                         resultado = resultado + positivo + valorConstante + tempC + "(" + tmp + ")" +elevado + recurrencia
                         contDeC = contDeC + 1
-                        ls = ls + 1
                     elif(ls == 1):
                         resultado = resultado + positivo + valorConstante + tempC + recurrencia + "(" +tmp + ")" + elevado + recurrencia
                         contDeC = contDeC + 1
-                        ls = ls + 1
                     else:
-                        for i in range(pos2):
-                            tempN = str(int(contDeN))
-                            resultado = resultado + positivo + valorConstante + tempC + recurrencia + elevado + tempN + "(" + tmp + ")" + elevado + recurrencia
-                            contDeN = contDeN + 1
-                            contDeC = contDeC + 1
+                        tempN = str(int(contDeN))
+                        resultado = resultado + positivo + valorConstante + tempC + recurrencia + elevado + tempN + "(" + tmp + ")" + elevado + recurrencia
+                        contDeN = contDeN + 1
+                        contDeC = contDeC + 1
+                    ls = ls + 1
         update.message.reply_text(f"La forma solucion de la relacion de recurrencia es: \n\n"
                                   f"f_n = {resultado}")
 
